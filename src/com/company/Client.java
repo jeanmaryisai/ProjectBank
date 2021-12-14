@@ -14,6 +14,15 @@ public class Client {
     int Telephone;
     int Nif_Cin;
 
+    public Client( String typeClient, String nomComplet, String sexe, String adresse, int telephone, int nif_Cin) {
+        this.typeClient = typeClient;
+        this.nomComplet = nomComplet;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        Telephone = telephone;
+        Nif_Cin = nif_Cin;
+    }
+
     public Client() {
 
     }

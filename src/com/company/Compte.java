@@ -11,11 +11,15 @@ public class Compte {
     Client owner;
     List<Transaction> transactions= new ArrayList<>();
 
-    public Compte(TypeCompte type, String monaie, double solde, Character etat) {
+    public Compte(int numeroUnique, TypeCompte type, double solde, Character etat, Client owner) {
+        this.numeroUnique = numeroUnique;
         this.type = type;
         this.solde = solde;
         this.etat = etat;
+        this.owner = owner;
+
     }
+
 
     public Client getOwner() {
         return owner;

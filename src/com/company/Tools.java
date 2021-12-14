@@ -22,7 +22,7 @@ public abstract class Tools {
                 Scanner x = new Scanner(System.in);
                 v=x.nextLine();
             }while (!v.equals("y")&&!v.equals("n"));
-        if(v.equals("y")) valide=false;
+        if(v.equals("n")) valide=false;
         return valide;
     }
     public static String e(){

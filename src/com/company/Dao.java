@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import static com.company.Tools.*;
@@ -7,7 +8,7 @@ import static com.company.Tools.*;
 public abstract class Dao {
     public static List<Compte> comptes = new ArrayList<>();
     List<Transfert> transferts = new ArrayList<>();
-    List<Transaction> transactions = new ArrayList<>();
+    public static List<Transaction> transactions = new ArrayList<>();
     static List<Client> clients = new ArrayList<>();
     public static int currentRange = 0;
 
@@ -41,7 +42,6 @@ public abstract class Dao {
         client.setNif_Cin(ei());
         nc(client);
         currentRange++;
-
         clients.add(client);
         d("Client enregistre!");
     }
@@ -72,23 +72,24 @@ public abstract class Dao {
         Client client = searchc();
         if (!client.equals(null)) {
             d("Souhaiter vous modifier le nom du client?");
-            if (isvalide()) d("entrer le nom");
-            client.setNomComplet(e());
+            if (isvalide()) {d("entrer le nom");
+            client.setNomComplet(e());}
             d("Souhaiter vous modifier le sexe du client?");
-            if (isvalide()) d("entrer le sexe");
-            client.setSexe(e());
+            if (isvalide()){ d("entrer le sexe");
+            client.setSexe(e());}
             d("Souhaiter vous modifier l'adresse du client?");
-            if (isvalide()) d("entrer l'adresse");
-            client.setAdresse(e());
+            if (isvalide()) {d("entrer l'adresse");
+            client.setAdresse(e());}
             d("Souhaiter vous modifier le numero de telephone du client?");
-            if (isvalide()) d("entrer le numero de telephone");
-            client.setTelephone(ei());
+            if (isvalide()) {d("entrer le numero de telephone");
+            client.setTelephone(ei());}
             d("Souhaiter vous modifier le nif/cin du client?");
-            if (isvalide()) d("entrer le nif/cin");
-            client.setNif_Cin(ei());
+            if (isvalide()) {d("entrer le nif/cin");
+            client.setNif_Cin(ei());}
             d("Souhaiter vous modifier le type du client?");
-            if (isvalide()) d("entrer le type");
-            client.setTypeClient(e());
+            if (isvalide()) {d("entrer le type");
+            client.setTypeClient(e());}
+            client.toString();
         }
 
     }
@@ -114,7 +115,7 @@ public abstract class Dao {
     //compte
     public static void newCompte() {
         d("Entrer le nif/cin du CLient");
-        Client client = searchc();
+        try{Client client = searchc();}catch (Exception e){}
         if (!client.equals(null)) {
             if (client.comptes.size() < 4) {
                 TypeCompte typeCompte = new TypeCompte();
@@ -324,25 +325,33 @@ public abstract class Dao {
             d("Vous ne pouvez pas operer des operation sur un comptes innactif");
         return;}
         if(compte.equals(null))d("le compte n'existe pas!");
-        else { int coeficient=1;
+        else {Transaction transaction=new Transaction();
+            int coeficient=1;
             d("vous faites un depot?");
             if(!isvalide()){
+                transaction.setDepot(false);
                 coeficient=-1;
                 if(compte.solde==0){
                     d("vous ne pouvez pas faire des retrait sur un compte a solde 0");return;
                 }
-            }
+            }else transaction.setDepot(true);
             d("Entrer le montant");
             double montant=ed()*coeficient;
+
             if ((montant + compte.solde)<0){
                 d("Vous ne pouvez pas proceder a ce retrait(le montant est inferieur a votre solde)");
                 return;
             }
+            transaction.setDate(LocalDate.now());
+            transaction.setMontant(montant);
             compte.setSolde((compte.solde+montant));
-            Transaction transaction=new Transaction();
-
+            transaction.setNomDeposant(compte.getOwner().nomComplet);
+            transactions.add(transaction);
+            compte.transactions.add(transaction);
         }
     }
+
+
 
 
     public static List<Compte> getComptes() {
