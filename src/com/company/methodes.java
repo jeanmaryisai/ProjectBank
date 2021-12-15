@@ -372,7 +372,15 @@ public abstract class methodes {
             compte.transactions.add(transaction);
         }
     }
+    public static void newTransfert(){
+        Compte compteD;Compte compteC;
+        d("Pour le compte debiteur");
+        try{compteD=searchC();}catch (Exception e){d("le compte n'existe pas!");return;}
+        d("Pour le compte crediteur");
+        try{compteC=searchC();}catch (Exception e){d("le compte n'existe pas!");return;}
 
+
+    }
 
 
 }

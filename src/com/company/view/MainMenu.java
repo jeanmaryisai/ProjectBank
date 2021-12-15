@@ -75,6 +75,26 @@ public abstract class MainMenu {
         } while (stay);
     }
     public static void moduleTrasaction(){
+        int choix;
+        boolean stay = true;
+        do {
+            do {
+                d("Presser 1 pour faire un depot/retrait\n" +
+                        "presser 2 pour faire un transfert\n" +
+                        "presser 3 pour lister tous les transaction\n" +
+                        "presser 4 pour rechercher un transaction\n" +
+                        "presser 5 pour retourner au menu principale"
+                );
+                choix = ei();
+            } while (choix != 1 && choix != 2 && choix != 3 && choix != 4&&choix!=5);
 
+            switch (choix){
+                case 1:newTransaction();break;
+                case 2:rechercherClient();break;
+                case 3:listerClient();break;
+                case 5:stay=false;break;
+                case 4:modifierClient();break;
+            }
+        } while (stay);
     }
 }
