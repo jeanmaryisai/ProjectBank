@@ -115,7 +115,11 @@ public abstract class Dao {
     //compte
     public static void newCompte() {
         d("Entrer le nif/cin du CLient");
-        try{Client client = searchc();}catch (Exception e){}
+        Client client = null;
+        try {
+            client = searchc();
+        } catch (Exception e) {
+        }
         if (!client.equals(null)) {
             if (client.comptes.size() < 4) {
                 TypeCompte typeCompte = new TypeCompte();
@@ -125,7 +129,7 @@ public abstract class Dao {
                 boolean k = false;
                 int it = 0;
                 boolean kt = false;
-                boolean ktk=false;
+                boolean ktk = false;
                 int itk = 0;
                 for (Compte x :
                         client.comptes) {
@@ -134,7 +138,7 @@ public abstract class Dao {
                     if (x.type.Isepargne) it++;
                     kt = x.type.Isgourde;
                     if (!x.type.Isgourde) itk++;
-                    ktk=x.type.isIsepargne();
+                    ktk = x.type.isIsepargne();
                 }
                 compte.setType(typeCompte);
                 compte.setSolde(0.00);
@@ -220,61 +224,61 @@ public abstract class Dao {
                             }
                         }
                     }
-                    if(client.comptes.size()==3){
-                        if(k){
+                    if (client.comptes.size() == 3) {
+                        if (k) {
                             d("Vous ne pouvez que creer un compte courrant en gourde pour ce client");
                             d("Voulez vous y proceder?...");
-                            if(isvalide()){
+                            if (isvalide()) {
                                 typeCompte.setIsepargne(false);
                                 typeCompte.setIsgourde(true);
-                            }else return;
-                        }else {
+                            } else return;
+                        } else {
                             d("Vous ne pouvez que creer un compte epargne en gourde pour ce client");
                             d("Voulez vous y proceder?...");
-                            if(isvalide()){
+                            if (isvalide()) {
                                 typeCompte.setIsepargne(true);
                                 typeCompte.setIsgourde(true);
-                            }else return;
+                            } else return;
                         }
                     }
                     if (client.comptes.size() == 2) {
-                        if(k){
-                            if(ktk){
+                        if (k) {
+                            if (ktk) {
                                 d("Vous ne pouvez creer que de getcompte courrant pour ce client!");
                                 d("Voulez vous proceder...");
-                                if(isvalide()){
+                                if (isvalide()) {
                                     typeCompte.setIsepargne(false);
                                     d("Ce compte est il en gourdes?");
                                     typeCompte.setIsgourde(isvalide());
-                                }else return;
-                            }else {
+                                } else return;
+                            } else {
                                 d("Votre compte, est il un compte epargne?");
-                                if (isvalide()){
+                                if (isvalide()) {
                                     d("le compte ne peut etre qu'en dollars");
                                     typeCompte.setIsgourde(false);
                                     typeCompte.setIsepargne(true);
-                                }else {
+                                } else {
                                     d("Le compte ne peut etre qu'en gourdes");
                                     typeCompte.setIsepargne(false);
                                     typeCompte.setIsgourde(true);
                                 }
                             }
-                        }else {
-                            if(!ktk){
+                        } else {
+                            if (!ktk) {
                                 d("Vous ne pouvez creer que de getcompte epargne pour ce client!");
                                 d("Voulez vous proceder...");
-                                if(isvalide()){
+                                if (isvalide()) {
                                     typeCompte.setIsepargne(false);
                                     d("Ce compte est il en gourdes?");
                                     typeCompte.setIsgourde(isvalide());
-                                }else return;
-                            }else {
+                                } else return;
+                            } else {
                                 d("Votre compte, est il un compte epargne?");
-                                if (isvalide()){
+                                if (isvalide()) {
                                     d("le compte ne peut etre qu'en gourdes");
                                     typeCompte.setIsgourde(true);
                                     typeCompte.setIsepargne(true);
-                                }else {
+                                } else {
                                     d("le compte ne peut etre qu'en dollar");
                                     typeCompte.setIsgourde(!true);
                                     typeCompte.setIsepargne(!true);
@@ -287,7 +291,7 @@ public abstract class Dao {
                 compte.setEtat('f');
                 getComptes().add(compte);
                 client.comptes.add(compte);
-            }else {
+            } else {
                 d("Le client ne peut plus se voir attribuer de getcompte, ses quatre type de compte sont deja attrubuer.");
             }
         }
