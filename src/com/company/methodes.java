@@ -341,12 +341,11 @@ public abstract class methodes {
     }
 
     //transactions
-    public static void newTransaction(){
-        Compte compte=searchC();
+    public static void newTransaction(){Compte compte;
+       try{compte=searchC();}catch (Exception e){d("le compte n'existe pas!");return;}
         if(compte.etat.equals('f')){
             d("Vous ne pouvez pas operer des operation sur un comptes innactif");
             return;}
-        if(compte.equals(null))d("le compte n'existe pas!");
         else {Transaction transaction=new Transaction();
             int coeficient=1;
             d("vous faites un depot?");

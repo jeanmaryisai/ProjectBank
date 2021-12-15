@@ -8,7 +8,7 @@ public abstract class MainMenu {
     public static int mainMenu(){int i;
         do {
             d("Menu principale\n" +
-                    "Presser 1 pour le module clients\n" +
+                    "Presser 1 pour le module clients" +
                     "\nPresser 2 pour le module comptes" +
                     "\nPresser 3 pour le module transactions." +
                     "\nPresser 4 pour quitter le programme");
@@ -19,8 +19,8 @@ public abstract class MainMenu {
     public static void menuPrincipale(){boolean stay=true;
         do {
             switch (mainMenu()){
-                case 1:test(1);break;
-                case 2:test(2);break;
+                case 1:moduleClients();break;
+                case 2:moduleComptes();break;
                 case 3:test(3);break;
                 case 4:test(4);stay=false;
             }
@@ -65,12 +65,16 @@ public abstract class MainMenu {
             } while (choix != 1 && choix != 2 && choix != 3 && choix != 4&&choix!=5&&choix!=6);
 
             switch (choix){
-                case 1:;break;
-                case 2:rechercherClient();break;
-                case 3:listerClient();break;
+                case 1:newCompte();break;
+                case 2:rechercherCompte();break;
+                case 3:listerComptes();break;
                 case 6:stay=false;break;
-                case 4:modifierClient();break;
+                case 4:modifierCompte();break;
+                case 5:supprimerCompte();break;
             }
         } while (stay);
+    }
+    public static void moduleTrasaction(){
+
     }
 }
