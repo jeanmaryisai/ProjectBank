@@ -2,6 +2,7 @@ package com.company.view;
 
 import static com.company.Dao.*;
 import static com.company.Tools.*;
+import static com.company.methodes.*;
 
 public abstract class MainMenu {
     public static int mainMenu(){int i;
@@ -37,7 +38,7 @@ public abstract class MainMenu {
                         "presser 5 pour retourner au menu principale"
                 );
                 choix = ei();
-            } while (choix != 1 && choix != 2 && choix != 3 && choix != 4);
+            } while (choix != 1 && choix != 2 && choix != 3 && choix != 4&&choix!=5);
 
             switch (choix){
                 case 1:newClient();break;
@@ -57,16 +58,17 @@ public abstract class MainMenu {
                         "presser 2 pour rechercher un comptes\n" +
                         "presser 3 pour lister tous les comptes\n" +
                         "presser 4 pour modifier un comptes\n" +
-                        "presser 5 pour retourner au menu principale"
+                        "presser 5 pour supprimer un compte\n" +
+                        "presser 6 pour retourner au menu principale"
                 );
                 choix = ei();
-            } while (choix != 1 && choix != 2 && choix != 3 && choix != 4);
+            } while (choix != 1 && choix != 2 && choix != 3 && choix != 4&&choix!=5&&choix!=6);
 
             switch (choix){
-                case 1:newClient();break;
+                case 1:;break;
                 case 2:rechercherClient();break;
                 case 3:listerClient();break;
-                case 5:stay=false;break;
+                case 6:stay=false;break;
                 case 4:modifierClient();break;
             }
         } while (stay);
