@@ -38,6 +38,7 @@ public class Sqlcon {
         System.out.println("Table created successfully");
     }
     public static void insertValue(List<Object> list, String tabName){
+
         Connection c = null;
         Statement stmt = null;
         tabName= tabName.toUpperCase();

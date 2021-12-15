@@ -225,6 +225,7 @@ public abstract class Dao {
                         }
                     }
                     if (client.comptes.size() == 3) {
+
                         if (k) {
                             d("Vous ne pouvez que creer un compte courrant en gourde pour ce client");
                             d("Voulez vous y proceder?...");
