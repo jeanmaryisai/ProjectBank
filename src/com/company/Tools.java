@@ -30,7 +30,11 @@ public abstract class Tools {
             String i=x.nextLine();
             return i;
     }
-
+    public static void br(){
+        Scanner x=new Scanner(System.in);
+        d("Presser enter pour continuer");
+        x.nextLine();
+    }
     public static void test(int x){
         System.out.println("Test "+x+" succeed");
     }

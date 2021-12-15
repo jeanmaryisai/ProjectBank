@@ -1,5 +1,5 @@
 package com.company;
-
+import static com.company.Tools.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,5 +62,26 @@ public class Compte {
     }
 
     public Compte() {
+    }
+    public String toString(){
+        d("Compte numero: "+numeroUnique);
+        d("Nif Proprietaire: "+owner.getNif_Cin());
+        d("Nom Proprietaire: "+ owner.nomComplet);
+        if(etat.equals('f'))d("Etat: Fermer");
+        else {
+            d("Etat: Actif" +
+                    "\nSolde: "+solde
+                    );
+            if (type.Isgourde)d("Monnaie: gourdes");
+            else d("Monnaie: Dollars");
+            if(type.Isepargne)d("Type de compte: Epargne");
+            else d("Type de compte: courrant");
+            d("Transactions associees->{");
+            for (Transaction x:
+                 transactions) {
+                d("Transaction "+x.id);
+            }
+        }
+        return null;
     }
 }

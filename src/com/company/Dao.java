@@ -69,7 +69,7 @@ public abstract class Dao {
     public static void modifierClient() {
         d("Entrer le nif ou cin du client");
         int nif = ei();
-        Client client = searchc();
+       try{ Client client = searchc();
         if (!client.equals(null)) {
             d("Souhaiter vous modifier le nom du client?");
             if (isvalide()) {d("entrer le nom");
@@ -90,7 +90,7 @@ public abstract class Dao {
             if (isvalide()) {d("entrer le type");
             client.setTypeClient(e());}
             client.toString();
-        }
+        }}catch (Exception e){}
 
     }
 
@@ -110,12 +110,16 @@ public abstract class Dao {
         getComptes().add(compte);
         client.getComptes().add(compte);
     }
+    public static void listerClient(){
+        for(Client x:clients){
+            d(x.nomComplet+" de nif/cin: "+x.getNif_Cin()+"\n");
+        }
+    }
 
 
     //compte
     public static void newCompte() {
-        d("Entrer le nif/cin du CLient");
-        try{Client client = searchc();}catch (Exception e){}
+        try{Client client = searchc();
         if (!client.equals(null)) {
             if (client.comptes.size() < 4) {
                 TypeCompte typeCompte = new TypeCompte();
@@ -290,7 +294,7 @@ public abstract class Dao {
             }else {
                 d("Le client ne peut plus se voir attribuer de getcompte, ses quatre type de compte sont deja attrubuer.");
             }
-        }
+        }}catch (Exception e){}
     }
 
     public static Compte searchC(){
@@ -303,10 +307,10 @@ public abstract class Dao {
         return null;
     }
 
-    public static void rechercherCompte(){
-        Compte compte=searchC();
-        if(compte.equals(null))d("Aucune correspondance trouvee");
-        else compte.toString();
+    public static void rechercherCompte(){Compte compte;
+       try{ compte=searchC();}
+        catch (Exception e){d("Aucune correspondance trouvee");return;}
+         compte.toString();
 
     }
 
@@ -316,6 +320,29 @@ public abstract class Dao {
             d("Voulez vous modifier l'etat du compte?");
             if(isvalide())test(1);
         }
+    }
+
+    public static void listerComptes(){
+        for(Compte x:comptes){
+            d("Compte #"+x.numeroUnique+" detenu par "+x.owner.nomComplet+"de nif/cin: "+x.owner.getNif_Cin());
+        }
+    }
+    public static void supprimerCompte(){
+        Compte compte;
+        try{compte=searchC();}catch (Exception e){d("Votre compte ne peut etre retrouvee");return;}
+        comptes.remove(compte);
+        if(compte.owner.comptes.size()==1){d("Vous allez proceder a la supression du dernier compte associer du client, en faisant cela vous supprimer aussi le client");
+            d("voulez vous proceder?");
+            if(isvalide()){
+                compte.owner.comptes.remove(compte);
+                clients.remove(compte.owner);
+            }else{
+                d("Action intterrompu!");
+                return;
+            }
+        }
+        compte.owner.comptes.remove(compte);
+        d("Le compte a ete suprrimer!");
     }
 
     //transactions
@@ -342,6 +369,7 @@ public abstract class Dao {
                 d("Vous ne pouvez pas proceder a ce retrait(le montant est inferieur a votre solde)");
                 return;
             }
+
             transaction.setDate(LocalDate.now());
             transaction.setMontant(montant);
             compte.setSolde((compte.solde+montant));

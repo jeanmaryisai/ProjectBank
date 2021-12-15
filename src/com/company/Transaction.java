@@ -1,13 +1,22 @@
 package com.company;
-
+import static com.company.Tools.*;
 import java.time.LocalDate;
 
 public class Transaction {
     boolean isDepot;
+    int id;
     int numeroCompte;
     double montant;
     LocalDate date;
     String nomDeposant;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Transaction(boolean isDepot, int numeroCompte, double montant, LocalDate date) {
         this.isDepot = isDepot;
@@ -67,5 +76,16 @@ public class Transaction {
         if(!existe){
             Tools.d("Le compte n'existe pas!");
         }
+    }
+    public String toString(){
+        if(isDepot){
+            d("Id transaction: "+id);
+            d("Type de Transaction: Depot");
+        }else d("Type de transaction retrait");
+        d("Montant: "+Math.sqrt(montant*montant));
+        d("Numero de compte: "+numeroCompte);
+        d("Date de la transaction: "+date.toString());
+        d("Nom du deposant: "+ nomDeposant);
+        return null;
     }
 }
