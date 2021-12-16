@@ -24,6 +24,7 @@ public abstract class MainMenu {
                 case 3:test(3);break;
                 case 4:test(4);stay=false;
             }
+         if(stay)br();
         }while (stay);
     }
     public static void moduleClients() {
@@ -47,6 +48,7 @@ public abstract class MainMenu {
                 case 5:stay=false;break;
                 case 4:modifierClient();break;
             }
+            if(stay)br();
         } while (stay);
     }
     public static void moduleComptes() {
@@ -95,6 +97,7 @@ public abstract class MainMenu {
                 case 5:stay=false;break;
                 case 4:modifierClient();break;
             }
+            if(stay)br();
         } while (stay);
     }
 }

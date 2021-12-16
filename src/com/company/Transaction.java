@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Transaction {
     boolean isDepot;
     int id;
-    int numeroCompte;
+    String numeroCompte;
     double montant;
     LocalDate date;
     String nomDeposant;
@@ -18,7 +18,7 @@ public class Transaction {
         this.id = id;
     }
 
-    public Transaction(boolean isDepot, int numeroCompte, double montant, LocalDate date) {
+    public Transaction(boolean isDepot, String numeroCompte, double montant, LocalDate date) {
         this.isDepot = isDepot;
         this.numeroCompte = numeroCompte;
         this.montant = montant;
@@ -36,11 +36,11 @@ public class Transaction {
         isDepot = depot;
     }
 
-    public int getNumeroCompte() {
+    public String getNumeroCompte() {
         return numeroCompte;
     }
 
-    public void setNumeroCompte(int numeroCompte) {
+    public void setNumeroCompte(String numeroCompte) {
         this.numeroCompte = numeroCompte;
     }
 
@@ -67,14 +67,14 @@ public class Transaction {
     public void setNomDeposant(String nomDeposant) {
         boolean existe=true;
         for(int i=0;i<Dao.getComptes().size();i++){
-            if(numeroCompte==Dao.getComptes().get(i).numeroUnique){
+            if(numeroCompte.equals(Dao.getComptes().get(i).numeroUnique)){
                 existe=true;
                 this.nomDeposant = Dao.getComptes().get(i).getOwner().nomComplet;
 
             }
         }
         if(!existe){
-            Tools.d("Le compte n'existe pas!");
+            d("Le compte n'existe pas!");
         }
     }
     public String toString(){

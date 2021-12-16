@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compte {
-    int numeroUnique;
+    String numeroUnique;
     TypeCompte type;
     double solde;
     Character etat;
@@ -12,7 +12,7 @@ public class Compte {
     List<Transaction> transactions= new ArrayList<>();
 
     public Compte(int numeroUnique, TypeCompte type, double solde, Character etat, Client owner) {
-        this.numeroUnique = numeroUnique;
+
         this.type = type;
         this.solde = solde;
         this.etat = etat;
@@ -29,11 +29,11 @@ public class Compte {
         this.owner = owner;
     }
 
-    public int getNumeroUnique() {
+    public String getNumeroUnique() {
         return numeroUnique;
     }
 
-    public void setNumeroUnique(int numeroUnique) {
+    public void setNumeroUnique(String numeroUnique) {
         this.numeroUnique = numeroUnique;
     }
 
