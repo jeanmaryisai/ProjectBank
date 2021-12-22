@@ -169,11 +169,13 @@ public abstract class methodes {
         System.out.println("Le compte associe, est-il un compte epargne?");
         typeCompte.setIsepargne(Tools.isvalide());
         compte.setType(typeCompte);
-        compte.setSolde(0.00);
+
         d("entrer le depot de montant initial");
         double montant= ed();
+        compte.setSolde(montant);
         Transaction transaction=new Transaction(true,randomTId(),compte.numeroUnique,montant,LocalDate.now(),
                 compte.owner.nomComplet);
+
         compte.transactions.add(transaction);
         boolean vv = true;
         String x = "";
@@ -435,7 +437,7 @@ public abstract class methodes {
 
     public static void listerComptes() {
         for (Compte x : comptes) {
-            d("Compte #" + x.numeroUnique + " detenu par " + x.owner.nomComplet + "de nif/cin: " + x.owner.getNif_Cin());
+            d("Compte #" + x.numeroUnique + " detenu par " + x.owner.nomComplet + " de nif/cin: " + x.owner.getNif_Cin());
         }
     }
 

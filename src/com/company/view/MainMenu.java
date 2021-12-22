@@ -75,7 +75,7 @@ public abstract class MainMenu {
                 case 6:stay=false;break;
                 case 4:modifierCompte();break;
                 case 5:supprimerCompte();break;
-            }
+            }if(stay)br();
         } while (stay);
     }
     public static void moduleTrasaction(){
