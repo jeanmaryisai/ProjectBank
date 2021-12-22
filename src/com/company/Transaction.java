@@ -67,17 +67,12 @@ public class Transaction {
     }
 
     public void setNomDeposant(String nomDeposant) {
-        boolean existe=true;
-        for(int i=0;i<Dao.getComptes().size();i++){
-            if(numeroCompte.equals(Dao.getComptes().get(i).numeroUnique)){
-                existe=true;
-                this.nomDeposant = Dao.getComptes().get(i).getOwner().nomComplet;
 
-            }
-        }
-        if(!existe){
-            d("Le compte n'existe pas!");
-        }
+                this.nomDeposant = nomDeposant;
+
+
+
+
     }
     public String toString(){
         d("Id transaction: "+id);

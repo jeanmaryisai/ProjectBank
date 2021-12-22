@@ -470,40 +470,42 @@ public abstract class methodes {
         Compte compte;
         try {
             compte = searchC();
+            if (compte.etat.equals('f')) {
+                d("Vous ne pouvez pas operer des operation sur un comptes innactif");
+                return;
+            } else {
+                Transaction transaction = new Transaction();
+                int coeficient = 1;
+                d("vous faites un depot?");
+                if (!isvalide()) {
+                    transaction.setDepot(false);
+                    coeficient = -1;
+                    if (compte.solde == 0) {
+                        d("vous ne pouvez pas faire des retrait sur un compte a solde 0");
+                        return;
+                    }
+                } else transaction.setDepot(true);
+                d("Entrer le montant");
+                double montant = ed() * coeficient;
+
+                if ((montant + compte.solde) < 0) {
+                    d("Vous ne pouvez pas proceder a ce retrait(le montant est inferieur a votre solde)");
+                    return;
+                }
+                transaction.setId(randomTId());
+                transaction.setDate(LocalDate.now());
+                transaction.setMontant(montant);
+                compte.setSolde((compte.solde + montant));
+                transaction.setNomDeposant(compte.getOwner().nomComplet);
+                transactions.add(transaction);
+                compte.transactions.add(transaction);
+            }
         } catch (Exception e) {
             d("le compte n'existe pas!");
             return;
         }
-        if (compte.etat.equals('f')) {
-            d("Vous ne pouvez pas operer des operation sur un comptes innactif");
-            return;
-        } else {
-            Transaction transaction = new Transaction();
-            int coeficient = 1;
-            d("vous faites un depot?");
-            if (!isvalide()) {
-                transaction.setDepot(false);
-                coeficient = -1;
-                if (compte.solde == 0) {
-                    d("vous ne pouvez pas faire des retrait sur un compte a solde 0");
-                    return;
-                }
-            } else transaction.setDepot(true);
-            d("Entrer le montant");
-            double montant = ed() * coeficient;
 
-            if ((montant + compte.solde) < 0) {
-                d("Vous ne pouvez pas proceder a ce retrait(le montant est inferieur a votre solde)");
-                return;
-            }
 
-            transaction.setDate(LocalDate.now());
-            transaction.setMontant(montant);
-            compte.setSolde((compte.solde + montant));
-            transaction.setNomDeposant(compte.getOwner().nomComplet);
-            transactions.add(transaction);
-            compte.transactions.add(transaction);
-        }
     }
 
     public static void newTransfert() {
