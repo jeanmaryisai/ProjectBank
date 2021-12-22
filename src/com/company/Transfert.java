@@ -2,15 +2,16 @@ package com.company;
 import java.time.LocalDate;
 
 public class Transfert {
-    int idTransfert;
-    int numeroCompteDebiteur;
-    int numeroCompteCrediteur;
+    String idTransfert;
+    String numeroCompteDebiteur;
+    String numeroCompteCrediteur;
     LocalDate dateTransaction;
     String description;
     double montantDepose;
     double montantRetire;
 
-    public Transfert(int numeroCompteDebiteur, int numeroCompteCrediteur, LocalDate dateTransaction, String description, double montantDepose, double montantRetire) {
+    public Transfert(String idTransfert, String numeroCompteDebiteur, String numeroCompteCrediteur, LocalDate dateTransaction, String description, double montantDepose, double montantRetire) {
+        this.idTransfert = idTransfert;
         this.numeroCompteDebiteur = numeroCompteDebiteur;
         this.numeroCompteCrediteur = numeroCompteCrediteur;
         this.dateTransaction = dateTransaction;
@@ -19,22 +20,22 @@ public class Transfert {
         this.montantRetire = montantRetire;
     }
 
-    public int getIdTransfert() {
+    public String getIdTransfert() {
         return idTransfert;
     }
 
-    public void setIdTransfert(int idTransfert) {
+    public void setIdTransfert(String idTransfert) {
         this.idTransfert = idTransfert;
     }
 
-    public int getNumeroCompteDebiteur() {
+    public String getNumeroCompteDebiteur() {
         return numeroCompteDebiteur;
     }
 
-    public void setNumeroCompteDebiteur(int numeroCompteDebiteur) {
+    public void setNumeroCompteDebiteur(String numeroCompteDebiteur) {
         boolean existe=false;
         for(int i=0;i<Dao.getComptes().size();i++){
-            if(numeroCompteDebiteur==Dao.getComptes().get(i).numeroUnique){
+            if(numeroCompteDebiteur.equals(Dao.getComptes().get(i).numeroUnique)){
                 existe=true;
             }
         }
@@ -45,11 +46,11 @@ public class Transfert {
         }
     }
 
-    public int getNumeroCompteCrediteur() {
+    public String getNumeroCompteCrediteur() {
         return numeroCompteCrediteur;
     }
 
-    public void setNumeroCompteCrediteur(int numeroCompteCrediteur) {
+    public void setNumeroCompteCrediteur(String numeroCompteCrediteur) {
         boolean existe=false;
         for(int i=0;i<Dao.getComptes().size();i++){
             if(numeroCompteDebiteur==Dao.getComptes().get(i).numeroUnique){
