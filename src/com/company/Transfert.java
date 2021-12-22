@@ -1,6 +1,8 @@
 package com.company;
 import java.time.LocalDate;
 
+import static com.company.Tools.d;
+
 public class Transfert {
     String idTransfert;
     String numeroCompteDebiteur;
@@ -9,6 +11,7 @@ public class Transfert {
     String description;
     double montantDepose;
     double montantRetire;
+    public String devise;
 
     public Transfert(String idTransfert, String numeroCompteDebiteur, String numeroCompteCrediteur, LocalDate dateTransaction, String description, double montantDepose, double montantRetire) {
         this.idTransfert = idTransfert;
@@ -40,7 +43,7 @@ public class Transfert {
             }
         }
         if(!existe){
-            Tools.d("Le compte Debiteur n'existe pas!");
+            d("Le compte Debiteur n'existe pas!");
         }else{
             this.numeroCompteDebiteur = numeroCompteDebiteur;
         }
@@ -58,7 +61,7 @@ public class Transfert {
             }
         }
         if(!existe){
-            Tools.d("Le compte Crebiteur n'existe pas!");
+            d("Le compte Crebiteur n'existe pas!");
         }else{
             this.numeroCompteCrediteur = numeroCompteCrediteur;
         }
@@ -95,5 +98,16 @@ public class Transfert {
 
     public void setMontantRetire(double montantRetire) {
         this.montantRetire = montantRetire;
+    }
+    public String toString(){
+
+        d("Id Transaction: "+idTransfert+"\n" +
+                "Type: Transfert" +
+                "\nMontant deposee: "+ montantDepose+" "+devise+
+                "\nMontant retiree: "+ montantRetire+" "+devise+
+                "\nCompte debiteur: "+ numeroCompteDebiteur
+                +"\nCompte Crediteur: "+numeroCompteCrediteur+
+                "\nDate de transfert: "+ dateTransaction.toString());
+        return null;
     }
 }

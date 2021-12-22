@@ -11,9 +11,10 @@ public abstract class MainMenu {
                     "Presser 1 pour le module clients" +
                     "\nPresser 2 pour le module comptes" +
                     "\nPresser 3 pour le module transactions." +
-                    "\nPresser 4 pour quitter le programme");
+                    "\nPresser 4 pour modifier le taux" +
+                    "\nPresser 5 pour quitter le programme");
         i=ei();
-        }while (i!=1&&i!=2&&i!=3);
+        }while (i!=1&&i!=2&&i!=3&&i!=4&&i!=5);
         return i;
     }
     public static void menuPrincipale(){boolean stay=true;
@@ -21,8 +22,9 @@ public abstract class MainMenu {
             switch (mainMenu()){
                 case 1:moduleClients();break;
                 case 2:moduleComptes();break;
-                case 3:test(3);break;
-                case 4:test(4);stay=false;
+                case 3:moduleTrasaction();break;
+                case 4:setTaux();break;
+                case 5:d("Bye and merry chrismas");stay=false;
             }
          if(stay)br();
         }while (stay);
@@ -92,10 +94,10 @@ public abstract class MainMenu {
 
             switch (choix){
                 case 1:newTransaction();break;
-                case 2:rechercherClient();break;
-                case 3:listerClient();break;
+                case 2:newTransfert();break;
+                case 3:listerTransaction();break;
                 case 5:stay=false;break;
-                case 4:modifierClient();break;
+                case 4:rechercherTransaction();break;
             }
             if(stay)br();
         } while (stay);

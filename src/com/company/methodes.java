@@ -59,7 +59,7 @@ public abstract class methodes {
                 d("Id: " + nif + " assigner");
             } else {
                 do {
-                    d("Enter le nif ou Cin du client");
+                    d("Enter le nif ou Cin du client");is=false;
                     ni = ei();
                     nif = String.valueOf(ni);
                     for (Client x : clients) {
@@ -381,7 +381,7 @@ public abstract class methodes {
         String s = e();
         for (Compte x :
                 getComptes()) {
-            if (s == x.numeroUnique) return x;
+            if (s.equals(x.numeroUnique)) return x;
         }
         return null;
     }
@@ -503,7 +503,6 @@ public abstract class methodes {
 
     public static void newTransfert() {
         double taxe= 100;
-        double taux=100;
         Compte compteD;
         Compte compteC;
         d("Pour le compte debiteur");
@@ -544,11 +543,64 @@ public abstract class methodes {
                 compteD.setSolde(compteD.getSolde()-montant);compteC.setSolde(compteC.getSolde()+montant-taxe/taux);
             }
         }
-        if(!compteC.type.Isgourde)taxe=taxe/taux;
+        if(!compteD.type.Isgourde)taxe=taxe/taux;
         d("entrer une description du transfert.");
         Transfert transfert=new Transfert(randomTransfertId(),compteD.numeroUnique,compteC.numeroUnique,
                 LocalDate.now(),e(),montant-taxe,montant);
+        String devise;
+        if(compteD.type.Isgourde)devise="gourdes";
+        else devise="Dollars";
+        transfert.devise=devise;
+        transferts.add(transfert);
+        compteC.transferts.add(transfert);
+        compteD.transferts.add(transfert);
     }
 
+    public static Transfert seachT(String num){
+        for(Transfert x:transferts){
+            if(num.equals(x.idTransfert)){
+                return x;
+            }
+        }
+        d("Numero non trouvee!");return null;
+    }
+    public static Transaction seachTr(String num){
+        for(Transaction x:transactions){
+            if(num.equals(x.id)){
+                return x;
+            }
+        }
+        d("Numero non trouvee!");return null;
+    }
 
+    public static void rechercherTransaction(){
+        d("Veuillez entrer le numero de transaction associer");
+        String num=e();
+        try{seachTr(num).toString();
+        }catch (Exception e){
+            try {
+                seachT(num).toString();
+            }catch (Exception a){
+                d("Transaction non trouvee!");
+            }
+        }
+    }
+    public static void listerTransaction(){
+        for (Transaction x:transactions){
+            d("List depot:");
+            if(x.isDepot){
+                d("Transaction "+x.id+" fait le "+x.getDate().toString()+" par: "+x.nomDeposant);
+            }
+        }
+        for (Transaction x:transactions){
+            d("List retrait: ");
+            if(!x.isDepot){
+                d("Transaction "+x.id+" fait le "+x.getDate().toString()+" par: "+x.nomDeposant);
+            }
+        }
+        d("List transferts:");
+        for(Transfert x:transferts){
+            d("Transaction "+x.idTransfert+" fait le "+ x.dateTransaction.toString()+" par le client "+x.numeroCompteDebiteur);
+        }
+    }
 }

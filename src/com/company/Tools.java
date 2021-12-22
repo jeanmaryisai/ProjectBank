@@ -3,6 +3,8 @@ package com.company;
 import java.util.Random;
 import java.util.Scanner;
 
+import static com.company.Dao.*;
+
 public abstract class Tools {
     public static int ei(){
         try{
@@ -31,13 +33,26 @@ public abstract class Tools {
         x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Ecr-"+String.valueOf(i);
+        for(Client h:clients){
+            if(h.getNif_Cin().equals(v)){
+                v=randomEId();
+                break;
+            }
+        }
         return v;
     }
     public static String randomCId(){
-        Random x=new Random(1);
-        x.nextInt(99999);
+        Random x=new Random();
+        x.nextInt(99999);x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
-        String v="Ccr-"+i;
+        String v="0000-"+i;
+        d(i);
+        for(Compte h:comptes){
+            if(h.numeroUnique.equals(v)){
+                v=randomCId();
+                break;
+            }
+        }
         return v;
     }
     public static String randomTId(){
@@ -45,6 +60,12 @@ public abstract class Tools {
         x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Tcr-"+i;
+        for (Transaction h:transactions){
+            if(h.getId().equals(v)){
+                v=randomTId();
+                break;
+            }
+        }
         return v;
     }
     public static String randomTransfertId(){
@@ -52,6 +73,11 @@ public abstract class Tools {
         x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Trcr-"+String.valueOf(i);
+        for(Transfert h:transferts){
+            if(h.idTransfert.equals(v)){
+                v=randomTransfertId();break;
+            }
+        }
         return v;
     }
     public static boolean isvalide(){

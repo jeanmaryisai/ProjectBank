@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class Transaction {
     boolean isDepot;
-    int id;
+    String id;
     String numeroCompte;
     double montant;
     LocalDate date;
     String nomDeposant;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -78,8 +78,8 @@ public class Transaction {
         }
     }
     public String toString(){
+        d("Id transaction: "+id);
         if(isDepot){
-            d("Id transaction: "+id);
             d("Type de Transaction: Depot");
         }else d("Type de transaction retrait");
         d("Montant: "+Math.sqrt(montant*montant));
