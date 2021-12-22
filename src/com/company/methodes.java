@@ -77,9 +77,7 @@ public abstract class methodes {
             client.setNif_Cin(nif);
         } catch (Exception e) {
         }
-        d("Entrer le montant de depot initiale");
-        Transaction transaction=new Transaction();
-        transaction.isDepot=true;
+
         nc(client);
         currentRange++;
         clients.add(client);
@@ -167,11 +165,16 @@ public abstract class methodes {
         compte.setOwner(client);
         TypeCompte typeCompte = new TypeCompte();
         typeCompte.setIsgourde(Tools.isvalide());
-        compte.setEtat('f');
+        compte.setEtat('a');
         System.out.println("Le compte associe, est-il un compte epargne?");
         typeCompte.setIsepargne(Tools.isvalide());
         compte.setType(typeCompte);
         compte.setSolde(0.00);
+        d("entrer le depot de montant initial");
+        double montant= ed();
+        Transaction transaction=new Transaction(true,randomTId(),compte.numeroUnique,montant,LocalDate.now(),
+                compte.owner.nomComplet);
+        compte.transactions.add(transaction);
         boolean vv = true;
         String x = "";
         while (vv) {

@@ -18,11 +18,13 @@ public class Transaction {
         this.id = id;
     }
 
-    public Transaction(boolean isDepot, String numeroCompte, double montant, LocalDate date) {
+    public Transaction(boolean isDepot, String id, String numeroCompte, double montant, LocalDate date, String nomDeposant) {
         this.isDepot = isDepot;
+        this.id = id;
         this.numeroCompte = numeroCompte;
         this.montant = montant;
         this.date = date;
+        this.nomDeposant = nomDeposant;
     }
 
     public Transaction() {

@@ -30,7 +30,7 @@ public abstract class Tools {
     }
     public static String randomEId(){
         Random x=new Random(1);
-        x.nextInt(99999);
+        x.nextInt(99999);x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Ecr-"+String.valueOf(i);
         for(Client h:clients){
@@ -46,7 +46,6 @@ public abstract class Tools {
         x.nextInt(99999);x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="0000-"+i;
-        d(i);
         for(Compte h:comptes){
             if(h.numeroUnique.equals(v)){
                 v=randomCId();
@@ -57,7 +56,7 @@ public abstract class Tools {
     }
     public static String randomTId(){
         Random x=new Random(1);
-        x.nextInt(99999);
+        x.nextInt(99999); x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Tcr-"+i;
         for (Transaction h:transactions){
@@ -70,7 +69,7 @@ public abstract class Tools {
     }
     public static String randomTransfertId(){
         Random x=new Random(1);
-        x.nextInt(99999);
+        x.nextInt(99999); x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Trcr-"+String.valueOf(i);
         for(Transfert h:transferts){
