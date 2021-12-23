@@ -18,7 +18,6 @@ public class Transfert {
         this.montantDepose = montantDepose;
         this.montantRetire = montantRetire;
     }
-
     public int getIdTransfert() {
         return idTransfert;
     }

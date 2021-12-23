@@ -7,11 +7,11 @@ public class Compte {
     int numeroUnique;
     TypeCompte type;
     double solde;
-    Character etat;
+    String etat;
     Client owner;
     List<Transaction> transactions= new ArrayList<>();
 
-    public Compte(int numeroUnique, TypeCompte type, double solde, Character etat, Client owner) {
+    public Compte(int numeroUnique, TypeCompte type, double solde, String etat, Client owner) {
         this.numeroUnique = numeroUnique;
         this.type = type;
         this.solde = solde;
@@ -19,8 +19,6 @@ public class Compte {
         this.owner = owner;
 
     }
-
-
     public Client getOwner() {
         return owner;
     }
@@ -53,14 +51,26 @@ public class Compte {
         this.solde = solde;
     }
 
-    public Character getEtat() {
+    public String getEtat() {
         return etat;
     }
 
-    public void setEtat(Character etat) {
+    public void setEtat(String etat) {
         this.etat = etat;
     }
 
     public Compte() {
+    }
+
+    @Override
+    public String toString() {
+        return "Compte{" +
+                "numeroUnique=" + numeroUnique +
+                ", type=" + type +
+                ", solde=" + solde +
+                ", etat=" + etat +
+                ", owner=" + getOwner() +
+                ", transactions=" + transactions +
+                '}';
     }
 }

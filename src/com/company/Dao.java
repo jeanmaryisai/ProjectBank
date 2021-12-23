@@ -100,7 +100,7 @@ public abstract class Dao {
         compte.setOwner(client);
         TypeCompte typeCompte = new TypeCompte();
         typeCompte.setIsgourde(Tools.isvalide());
-        compte.setEtat('f');
+        compte.setEtat("f");
         System.out.println("Le compte associe, est-il un compte epargne?");
         typeCompte.setIsepargne(Tools.isvalide());
         compte.setType(typeCompte);
@@ -289,7 +289,7 @@ public abstract class Dao {
                         }
                     }
                 }
-                compte.setEtat('f');
+                compte.setEtat("f");
                 getComptes().add(compte);
                 client.comptes.add(compte);
             } else {

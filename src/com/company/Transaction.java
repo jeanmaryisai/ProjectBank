@@ -3,13 +3,13 @@ package com.company;
 import java.time.LocalDate;
 
 public class Transaction {
+    int numTrans;
     boolean isDepot;
     int numeroCompte;
     double montant;
     LocalDate date;
     String nomDeposant;
-
-    public Transaction(boolean isDepot, int numeroCompte, double montant, LocalDate date) {
+    public Transaction(int numTrans,boolean isDepot, int numeroCompte, double montant, LocalDate date) {
         this.isDepot = isDepot;
         this.numeroCompte = numeroCompte;
         this.montant = montant;
@@ -22,7 +22,6 @@ public class Transaction {
     public boolean isDepot() {
         return isDepot;
     }
-
     public void setDepot(boolean depot) {
         isDepot = depot;
     }

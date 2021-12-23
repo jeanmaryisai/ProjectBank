@@ -26,7 +26,6 @@ public class Client {
     public Client() {
 
     }
-
     public List<Compte> getComptes() {
         return comptes;
     }
