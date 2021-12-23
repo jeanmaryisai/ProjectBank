@@ -9,7 +9,7 @@ public class Compte {
     double solde;
     Character etat;
     Client owner;
-    List<Transaction> transactions= new ArrayList<>();
+   public List<Transaction> transactions= new ArrayList<>();
     List<Transfert> transferts= new ArrayList<>();
 
     public Compte(int numeroUnique, TypeCompte type, double solde, Character etat, Client owner) {

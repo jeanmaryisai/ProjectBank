@@ -226,7 +226,7 @@ public abstract class methodes {
             count++;
         } while (montant <= montantmin);
         compte.setSolde(montant);
-        Transaction transaction = new Transaction(true, randomTId(), compte.numeroUnique, montant, LocalDate.now(),
+        Transaction transaction = new Transaction(true, randomTId(true), compte.numeroUnique, montant, LocalDate.now(),
                 compte.owner.nomComplet);
         transactions.add(transaction);
         compte.transactions.add(transaction);
@@ -234,7 +234,7 @@ public abstract class methodes {
         String x = "";
         while (vv) {
             vv = false;
-            x = randomCId();
+            x = randomCId(typeCompte);
             for (Compte xr : comptes) {
                 if (x.equals(xr.numeroUnique)) vv = true;
             }
@@ -435,7 +435,7 @@ public abstract class methodes {
                     count++;
                 } while (montant <= montantmin);
                 compte.setSolde(montant);
-                Transaction transaction = new Transaction(true, randomTId(), compte.numeroUnique, montant, LocalDate.now(),
+                Transaction transaction = new Transaction(true, randomTId(true), compte.numeroUnique, montant, LocalDate.now(),
                         compte.owner.nomComplet);
                 compte.transactions.add(transaction);
                 transactions.add(transaction);
@@ -443,7 +443,7 @@ public abstract class methodes {
                 String x = "";
                 while (vv) {
                     vv = false;
-                    x = randomCId();
+                    x = randomCId(typeCompte);
                     for (Compte xr : comptes) {
                         if (x.equals(xr.numeroUnique)) vv = true;
                     }
@@ -528,18 +528,35 @@ public abstract class methodes {
             d("Votre compte ne peut etre retrouvee");
             return;
         }
-        comptes.remove(compte);
         if (compte.owner.comptes.size() == 1) {
             d("Vous allez proceder a la supression du dernier compte associer du client, en faisant cela vous supprimer aussi le client");
             d("voulez vous proceder?");
             if (isvalide()) {
                 compte.owner.comptes.remove(compte);
                 clients.remove(compte.owner);
+                d("Client supprimer!");return;
             } else {
                 d("Action intterrompu!");
                 return;
             }
+        }if(compte.solde!=0){String i;
+            if(compte.type.Isgourde)i="gourdes";
+            else i="dollars";
+            d("Vous aller proceder au retrait de tous l'argent restant sur le compte");
+            d("Il vous reste "+compte.solde+" "+i+" sur votre compte.");
+            d("Voulez vous vraiment proceder au retrait et a la supression du comptes?");
+            if (!isvalide()){
+                d("Action interrompu!");
+                return;
+            }
+            else {
+                Transaction transaction=new Transaction(false,randomTransfertId(),
+                        compte.numeroUnique,compte.solde,LocalDate.now(),compte.owner.nomComplet);
+                compte.setSolde(0);
+                transactions.add(transaction);
+            }
         }
+        comptes.remove(compte);
         compte.owner.comptes.remove(compte);
         d("Le compte a ete suprrimer!");
     }
@@ -571,7 +588,7 @@ public abstract class methodes {
                     d("Vous ne pouvez pas proceder a ce retrait(le montant est superieur a votre solde)");
                     return;
                 }
-                transaction.setId(randomTId());
+                transaction.setId(randomTId(transaction.isDepot));
                 transaction.setDate(LocalDate.now());
                 transaction.setMontant(montant);
                 compte.setSolde((compte.solde + montant));

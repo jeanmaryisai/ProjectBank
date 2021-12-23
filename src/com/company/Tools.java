@@ -41,28 +41,33 @@ public abstract class Tools {
         }
         return v;
     }
-    public static String randomCId(){
+    public static String randomCId(TypeCompte typeCompte){
         Random x=new Random();
+        String a="00";String b="77";
+        if(!typeCompte.Isgourde)a="11";
+        if(!typeCompte.Isepargne)b="66";
         x.nextInt(99999);x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
-        String v="0000-"+i;
+        String v=a+b+"-"+i;
         for(Compte h:comptes){
             if(h.numeroUnique.equals(v)){
-                v=randomCId();
+                v=randomCId(typeCompte);
                 break;
             }
         }
         return v;
     }
 
-    public static String randomTId(){
+    public static String randomTId(boolean is){
         Random x=new Random();
-        x.nextInt(99999); x.nextInt(99999);
-        int i=  (x.nextInt(99999)+100000);
-        String v="Tcr-"+i;
+        String r="01";
+        if(is)r="11";
+        x.nextInt(9999); x.nextInt(9999);
+        int i=  (x.nextInt(9999)+10000);
+        String v="Tcr-"+r+i;
         for (Transaction h:transactions){
             if(h.getId().equals(v)){
-                v=randomTId();
+                v=randomTId(is);
                 break;
             }
         }
@@ -72,7 +77,7 @@ public abstract class Tools {
         Random x=new Random();
         x.nextInt(99999); x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
-        String v="Trcr-"+String.valueOf(i);
+        String v="Trcr-"+i;
         for(Transfert h:transferts){
             if(h.idTransfert.equals(v)){
                 v=randomTransfertId();break;
