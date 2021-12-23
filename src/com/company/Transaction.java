@@ -4,25 +4,27 @@ import java.time.LocalDate;
 
 public class Transaction {
     boolean isDepot;
-    int id;
-    int numeroCompte;
+    String id;
+    String numeroCompte;
     double montant;
     LocalDate date;
     String nomDeposant;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Transaction(boolean isDepot, int numeroCompte, double montant, LocalDate date) {
+    public Transaction(boolean isDepot, String id, String numeroCompte, double montant, LocalDate date, String nomDeposant) {
         this.isDepot = isDepot;
+        this.id = id;
         this.numeroCompte = numeroCompte;
         this.montant = montant;
         this.date = date;
+        this.nomDeposant = nomDeposant;
     }
     public void save(){
         ListField listField = new ListField(id,isDepot,numeroCompte,montant,date);
@@ -40,11 +42,11 @@ public class Transaction {
         isDepot = depot;
     }
 
-    public int getNumeroCompte() {
+    public String getNumeroCompte() {
         return numeroCompte;
     }
 
-    public void setNumeroCompte(int numeroCompte) {
+    public void setNumeroCompte(String numeroCompte) {
         this.numeroCompte = numeroCompte;
     }
 
@@ -69,21 +71,16 @@ public class Transaction {
     }
 
     public void setNomDeposant(String nomDeposant) {
-        boolean existe=true;
-        for(int i=0;i<Dao.getComptes().size();i++){
-            if(numeroCompte==Dao.getComptes().get(i).numeroUnique){
-                existe=true;
-                this.nomDeposant = Dao.getComptes().get(i).getOwner().nomComplet;
 
-            }
-        }
-        if(!existe){
-            Tools.d("Le compte n'existe pas!");
-        }
+                this.nomDeposant = nomDeposant;
+
+
+
+
     }
     public String toString(){
+        d("Id transaction: "+id);
         if(isDepot){
-            d("Id transaction: "+id);
             d("Type de Transaction: Depot");
         }else d("Type de transaction retrait");
         d("Montant: "+Math.sqrt(montant*montant));

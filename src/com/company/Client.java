@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.company.Dao.clients;
 import static com.company.Tools.*;
 
 public class Client {
@@ -11,10 +13,10 @@ public class Client {
     String nomComplet;
     String sexe;
     String adresse;
-    int Telephone;
-    int Nif_Cin;
+    long Telephone;
+    String Nif_Cin;
 
-    public Client( String typeClient, String nomComplet, String sexe, String adresse, int telephone, int nif_Cin) {
+    public Client( String typeClient, String nomComplet, String sexe, String adresse, int telephone, String nif_Cin) {
         this.typeClient = typeClient;
         this.nomComplet = nomComplet;
         this.sexe = sexe;
@@ -71,19 +73,25 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public int getTelephone() {
+    public long getTelephone() {
         return Telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(long telephone) {
         Telephone = telephone;
     }
 
-    public int getNif_Cin() {
+    public String getNif_Cin() {
         return Nif_Cin;
     }
 
-    public void setNif_Cin(int nif_Cin) {
+    public void setNif_Cin(String nif_Cin) {
+        for (Client c:
+             clients) {
+            if(c.getNif_Cin().equals(nif_Cin)){
+                d("Cin/Nif deja pris!");return;
+            }
+        }
         Nif_Cin = nif_Cin;
     }
     @Override
@@ -91,9 +99,10 @@ public class Client {
         String devise="gourde";
         d("Nom: "+nomComplet+"\n" +
                 "sexe: "+sexe+"\n" +
-                "Telephone "+getTelephone()+"\n" +
-                "Nif/Cin " +getNif_Cin()+"\n" +
-                "Adresse " +adresse+"\n"+
+                "Telephone "+getTelephone()+"\n");
+        if(typeClient.equals("Entreprise"))d("Id: "+getNif_Cin());
+        else d("Nif/Cin " +getNif_Cin()+"\n");
+        d("Adresse " +adresse+"\n"+
                 "TypeClient "+typeClient+"\n" +
                 "Comptes associees->{"
         );
