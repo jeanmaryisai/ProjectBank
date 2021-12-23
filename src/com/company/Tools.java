@@ -54,6 +54,7 @@ public abstract class Tools {
         }
         return v;
     }
+
     public static String randomTId(){
         Random x=new Random(1);
         x.nextInt(99999); x.nextInt(99999);
@@ -83,7 +84,7 @@ public abstract class Tools {
         String v;
         boolean valide=true;
             do {
-                System.out.printf("Presser \"y\" pour oui, \"n\" pour non");
+                System.out.printf("Presser \"y\" pour oui, \"n\" pour non ");
                 Scanner x = new Scanner(System.in);
                 v=x.nextLine();
             }while (!v.equals("y")&&!v.equals("n"));

@@ -13,7 +13,7 @@ public class Client {
     String nomComplet;
     String sexe;
     String adresse;
-    int Telephone;
+    long Telephone;
     String Nif_Cin;
 
     public Client( String typeClient, String nomComplet, String sexe, String adresse, int telephone, String nif_Cin) {
@@ -69,11 +69,11 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public int getTelephone() {
+    public long getTelephone() {
         return Telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(long telephone) {
         Telephone = telephone;
     }
 
@@ -95,9 +95,10 @@ public class Client {
         String devise="gourde";
         d("Nom: "+nomComplet+"\n" +
                 "sexe: "+sexe+"\n" +
-                "Telephone "+getTelephone()+"\n" +
-                "Nif/Cin " +getNif_Cin()+"\n" +
-                "Adresse " +adresse+"\n"+
+                "Telephone "+getTelephone()+"\n");
+        if(typeClient.equals("Entreprise"))d("Id: "+getNif_Cin());
+        else d("Nif/Cin " +getNif_Cin()+"\n");
+        d("Adresse " +adresse+"\n"+
                 "TypeClient "+typeClient+"\n" +
                 "Comptes associees->{"
         );
