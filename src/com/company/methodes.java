@@ -99,7 +99,6 @@ public abstract class methodes {
         String nifs = e();
         for (Client x :
                 clients) {
-            d(x.Nif_Cin);
             if (nifs.equals(x.Nif_Cin)) {
                 return x;
             }
@@ -113,7 +112,7 @@ public abstract class methodes {
             d("Aucun client enregistre!");
             return;
         }
-        Client c = new Client();
+        Client c;
         try {
             c = searchc();
             c.toString();
@@ -130,6 +129,8 @@ public abstract class methodes {
         }
         try {
             Client client = searchc();
+            if(!client.equals(null)){
+                client.toString();
             d("Souhaiter vous modifier le nom du client?");
             String v;
             if (isvalide()) {
@@ -201,7 +202,7 @@ public abstract class methodes {
                 d("Id: " + nif + " assigner");
                 client.setNif_Cin(nif);
             }
-            client.toString();
+            client.toString();}
         } catch (Exception e) {
         }
 
@@ -218,13 +219,16 @@ public abstract class methodes {
         typeCompte.setIsepargne(Tools.isvalide());
         compte.setType(typeCompte);
         double montant;
-        int count = 0;
+        int count = 0;String devise="gourdes";double montan=montantmin;
+        if(!compte.type.Isgourde){
+            devise="dollars";montan=montan/taux;
+        }
         do {
-            if (count != 0) d("Le montant minimale pour ouvrir un compte est de "+montantmin);
+            if (count != 0) d("Le montant minimale pour ouvrir un compte est de "+montan+" "+devise);
             d("entrer le depot de montant initial");
             montant = ed();
             count++;
-        } while (montant <= montantmin);
+        } while (montant <= montan);
         compte.setSolde(montant);
         Transaction transaction = new Transaction(true, randomTId(true), compte.numeroUnique, montant, LocalDate.now(),
                 compte.owner.nomComplet);

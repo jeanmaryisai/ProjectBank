@@ -24,10 +24,6 @@ public class Client {
         Telephone = telephone;
         Nif_Cin = nif_Cin;
     }
-    public void save(){
-        ListField listField = new ListField(Nif_Cin,typeClient, nomComplet, sexe, adresse, Telephone);
-        Sqlcon.save(  "Transfert", listField);
-    }
 
     public Client() {
 
@@ -99,9 +95,9 @@ public class Client {
         String devise="gourde";
         d("Nom: "+nomComplet+"\n" +
                 "sexe: "+sexe+"\n" +
-                "Telephone "+getTelephone()+"\n");
+                "Telephone "+getTelephone());
         if(typeClient.equals("Entreprise"))d("Id: "+getNif_Cin());
-        else d("Nif/Cin " +getNif_Cin()+"\n");
+        else d("Nif/Cin " +getNif_Cin());
         d("Adresse " +adresse+"\n"+
                 "TypeClient "+typeClient+"\n" +
                 "Comptes associees->{"
