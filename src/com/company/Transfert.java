@@ -18,7 +18,10 @@ public class Transfert {
         this.montantDepose = montantDepose;
         this.montantRetire = montantRetire;
     }
-
+    public void save(){
+            ListField listField = new ListField(idTransfert,numeroCompteDebiteur, numeroCompteCrediteur, dateTransaction, description, montantDepose, montantRetire);
+            Sqlcon.save(  "Transfert", listField);
+    }
     public int getIdTransfert() {
         return idTransfert;
     }

@@ -19,7 +19,10 @@ public class Compte {
         this.owner = owner;
 
     }
-
+    public void save(){
+        ListField listField = new ListField(numeroUnique, type.isIsepargne(),solde, etat, owner.getNif_Cin());
+        Sqlcon.save(  "Transfert", listField);
+    }
 
     public Client getOwner() {
         return owner;

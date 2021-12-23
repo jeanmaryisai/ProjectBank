@@ -24,6 +24,10 @@ public class Transaction {
         this.montant = montant;
         this.date = date;
     }
+    public void save(){
+        ListField listField = new ListField(id,isDepot,numeroCompte,montant,date);
+        Sqlcon.save(  "Transfert", listField);
+    }
 
     public Transaction() {
     }
