@@ -26,6 +26,10 @@ public class Client {
     public Client() {
 
     }
+    public void save(){
+        ListField listField = new ListField(Nif_Cin,typeClient, nomComplet, sexe, adresse, Telephone);
+        Sqlcon.save(  "Client", listField);
+    }
     public List<Compte> getComptes() {
         return comptes;
     }

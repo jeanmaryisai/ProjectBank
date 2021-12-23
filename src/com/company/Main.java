@@ -18,7 +18,7 @@ public class Main {
         split= split.substring(2);
         int uniqNum = Integer.parseInt(split);
 //        TypeCompte type1=new TypeCompte(true,true);
-//        Client client1= new Client("Personne","Isai","Masculin","Rue Audant #32",39305866,123);
+//        Client client1= new Client("Personne","Erico","Masculin","Rue Clercine #32",37138236,124);
 //        Compte compte1=new Compte(uniqNum,type1,200,"f",client1);
 //        Compte compte2=new Compte(uniqNum+2,type1,400,"2",client1);
 //        client1.comptes.add(compte1);
@@ -30,7 +30,7 @@ public class Main {
 //        Sqlcon.createDatabase("Transaction");
 //          Transaction trans = new Transaction(uniqNum,true,9845,900, LocalDate.now());
 //          trans.save();
-        Sqlcon.loadData("Transaction");
+        Sqlcon.loadData("Client");
 
     }
 }

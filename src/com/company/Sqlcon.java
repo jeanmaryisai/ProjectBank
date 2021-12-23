@@ -162,12 +162,13 @@ public class Sqlcon {
             }
         }
     }
-        public static ArrayList<ArrayList<Object>> loadData (String tabName) {
+        public static Map <Integer,List<Object>> loadData (String tabName) {
 
             tabName = tabName.toUpperCase();
-            int i = 0, t = 0;
+            int i=0, t = 0;
             List<Object> listData = new ArrayList<Object>();
-            ArrayList <ArrayList<Object>> listDataAll = new ArrayList<ArrayList<Object>>();
+            Map <Integer,List<Object>>listDataAll = new HashMap<Integer,List<Object>>();
+
             if(Objects.equals(tabName, "CLIENT")){
 
                 String sql = "SELECT * FROM '" + tabName + "'";
@@ -191,8 +192,16 @@ public class Sqlcon {
                         listData.add(i + 4, tel);
                         int cin = rs.getInt("CIN_or_NIF");
                         listData.add(i + 5, cin);
-                        listDataAll.add(t, (ArrayList<Object>) listData);
+                        listDataAll.put(t,listData);
+                        for(Map.Entry m: listDataAll.entrySet()){
+
+                            System.out.println(m.getValue());
+                        }
+
                         t++;
+                        System.out.println("value "+t);
+
+
                     }
                     System.out.println("Data load");
 
@@ -223,9 +232,10 @@ public class Sqlcon {
                         listData.add(i + 3, etat);
                         String owner = rs.getString("OWNER");
                         listData.add(i + 4, owner);
-                        listDataAll.add( (ArrayList<Object>) listData);
-                        System.out.println("dat "+listData.get(3));
+                        listDataAll.put(t,listData);
+
                         System.out.println(listDataAll.get(0));
+                        System.out.println(listDataAll.get(1));
                         t++;
                     }
                     System.out.println("Data load");
@@ -260,9 +270,10 @@ public class Sqlcon {
                         listData.add(i + 5, montantDepose);
                         int montantRetire = rs.getInt("MONTANTRETIRE");
                         listData.add(i + 6, montantRetire);
-                        listDataAll.add( (ArrayList<Object>) listData);
-                        System.out.println("dat "+listData.get(3));
+                        listDataAll.put(t,listData);
+
                         System.out.println(listDataAll.get(0));
+                        System.out.println(listDataAll.get(1));
                         t++;
                     }
                     System.out.println("Data load");
@@ -295,9 +306,10 @@ public class Sqlcon {
                         String etat = rs.getString("DATE");
                         listData.add(i + 4, etat);
 
-                        listDataAll.add( (ArrayList<Object>) listData);
-                        System.out.println("dat "+listData.get(3));
+                        listDataAll.put(t,listData);
+
                         System.out.println(listDataAll.get(0));
+                        System.out.println(listDataAll.get(1));
                         t++;
                     }
                     System.out.println("Data load");
