@@ -29,7 +29,7 @@ public abstract class Tools {
         }
     }
     public static String randomEId(){
-        Random x=new Random(1);
+        Random x=new Random();
         x.nextInt(99999);x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Ecr-"+String.valueOf(i);
@@ -56,7 +56,7 @@ public abstract class Tools {
     }
 
     public static String randomTId(){
-        Random x=new Random(1);
+        Random x=new Random();
         x.nextInt(99999); x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Tcr-"+i;
@@ -69,7 +69,7 @@ public abstract class Tools {
         return v;
     }
     public static String randomTransfertId(){
-        Random x=new Random(1);
+        Random x=new Random();
         x.nextInt(99999); x.nextInt(99999);
         int i=  (x.nextInt(99999)+100000);
         String v="Trcr-"+String.valueOf(i);

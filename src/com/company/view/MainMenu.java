@@ -81,7 +81,7 @@ public abstract class MainMenu {
         boolean stay = true;
         do {
             do {
-                d("Presser 1 pour creer un nouveaau comptes\n" +
+                d("Presser 1 pour creer un nouveaau compte\n" +
                         "presser 2 pour rechercher un comptes\n" +
                         "presser 3 pour lister tous les comptes\n" +
                         "presser 4 pour modifier un comptes\n" +

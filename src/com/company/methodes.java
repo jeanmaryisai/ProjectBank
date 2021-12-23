@@ -37,13 +37,16 @@ public abstract class methodes {
         }
         d("Entrer l'adresse du client");
         client.setAdresse(e());
-        long num;int count=0;
-       do{ if(count!=0)d("Numero invalide !");
-           d("Entrer le numero de telephone du client(ne mettez pas d'espace svp)");
-        System.out.printf("+509 ");
-         num=el();count++;
+        long num;
+        int count = 0;
+        do {
+            if (count != 0) d("Numero invalide !");
+            d("Entrer le numero de telephone du client(ne mettez pas d'espace svp)");
+            System.out.printf("+509 ");
+            num = el();
+            count++;
 
-       }while (num>99999999||num<19999999);
+        } while (num > 99999999 || num < 19999999);
         client.setTelephone(num);
         long ni = 0;
         boolean is = false;
@@ -65,7 +68,8 @@ public abstract class methodes {
                 d("Id: " + nif + " assigner");
             } else {
                 do {
-                    d("Enter le nif ou Cin du client");is=false;
+                    d("Enter le nif ou Cin du client");
+                    is = false;
                     ni = ei();
                     nif = String.valueOf(ni);
                     for (Client x : clients) {
@@ -89,6 +93,7 @@ public abstract class methodes {
         clients.add(client);
         d("Client enregistre!");
     }
+
     public static Client searchc() {
         d("Entrer le nif/cin ou Id du client");
         String nifs = e();
@@ -102,6 +107,7 @@ public abstract class methodes {
         d("Le client ne peut etre retrouve !");
         return null;
     }
+
     public static void rechercherClient() {
         if (clients.size() == 0) {
             d("Aucun client enregistre!");
@@ -116,6 +122,7 @@ public abstract class methodes {
         }
 
     }
+
     public static void modifierClient() {
         if (clients.size() == 0) {
             d("Aucun client enregistre!");
@@ -123,33 +130,42 @@ public abstract class methodes {
         }
         try {
             Client client = searchc();
-            d("Souhaiter vous modifier le nom du client?");String v;
+            d("Souhaiter vous modifier le nom du client?");
+            String v;
             if (isvalide()) {
-                do {
-                    d("\nLe sexe du Client(\"m\" pour masculin,\"f\" pour feminin et \"a\" pour aucun)->");
-                    v = e();
-                } while (!v.equals("m") && !v.equals("f") && !v.equals("a"));
-                switch (v) {
-                    case "m":if(!client.sexe.equals("Masculin")){
-                        client.setSexe("Masculin");
-                        client.setTypeClient("Compte personnel");}
-                        break;
-                    case "f":if(!client.sexe.equals("feminin")){
-                        client.setSexe("feminin");
-                        client.setTypeClient("Compte personnel");}
-                        break;
-                    case "a":
-                        if(!client.sexe.equals("Aucun")){
-                        client.setSexe("Aucun");
-                        d("Ce client est-il un entreprise?");
-                        if (isvalide()) client.setTypeClient("Entreprise");}
-                        break;
-                }
+                d("Entrer le nom");
+                client.setNomComplet(e());
             }
             d("Souhaiter vous modifier le sexe du client?");
             if (isvalide()) {
-                d("entrer le sexe");
-                client.setSexe(e());
+                do {
+                    d("\npresser \"m\" pour masculin,\"f\" pour feminin et \"a\" pour aucun ->");
+                    v = e();
+                } while (!v.equals("m") && !v.equals("f") && !v.equals("a"));
+                switch (v) {
+                    case "m":
+                        if (!client.sexe.equals("Masculin")) {
+                            client.setSexe("Masculin");
+                            client.setTypeClient("Compte personnel");
+                        } else d("le client est deja set a ce sexe");
+                        break;
+                    case "f":
+                        if (!client.sexe.equals("feminin")) {
+                            client.setSexe("feminin");
+                            client.setTypeClient("Compte personnel");
+                        } else d("le client est deja set a ce sexe");
+                        break;
+                    case "a":
+                        if (!client.sexe.equals("Aucun")) {
+                            client.setSexe("Aucun");
+                            d("Ce client est-il un entreprise?");
+                            if (isvalide()) {
+                                client.setTypeClient("Entreprise");
+                            }
+                        } else d("le client est deja set a ce sexe");
+                        break;
+                }
+
             }
             d("Souhaiter vous modifier l'adresse du client?");
             if (isvalide()) {
@@ -161,21 +177,36 @@ public abstract class methodes {
                 d("entrer le numero de telephone");
                 client.setTelephone(ei());
             }
-            d("Souhaiter vous modifier le nif/cin du client?");
-            if (isvalide()) {
-                d("entrer le nif/cin");
-                client.setNif_Cin(String.valueOf(el()));
-            }
-            d("Souhaiter vous modifier le type du client?");
-            if (isvalide()) {
-                d("entrer le type");
-                client.setTypeClient(e());
+
+            if (!client.typeClient.equals("Entreprise")) {
+                d("Souhaiter vous modifier le nif/cin du client?");
+                if (isvalide()) {
+                    d("entrer le nif/cin");
+                    client.setNif_Cin(String.valueOf(el()));
+                }
+            } else {
+                String nif = null;
+                boolean dd = true;
+                while (dd) {
+                    dd = false;
+                    nif = randomEId();
+                    for (Client x :
+                            clients) {
+                        if (nif.equals(x.Nif_Cin)) {
+                            dd = true;
+                            break;
+                        }
+                    }
+                }
+                d("Id: " + nif + " assigner");
+                client.setNif_Cin(nif);
             }
             client.toString();
         } catch (Exception e) {
         }
 
     }
+
     public static void na(Client client) {
         System.out.println("Le compte associe, est-il en gourdes?(a noter s'il n'est pas en gourdes il est par defaut en dollars)");
         Compte compte = new Compte();
@@ -186,14 +217,18 @@ public abstract class methodes {
         System.out.println("Le compte associe, est-il un compte epargne?(a noter s'il n'est pas un compte epargne c'est un compte courant.)");
         typeCompte.setIsepargne(Tools.isvalide());
         compte.setType(typeCompte);
-        double montant;int count=0;
-        do{if(count!=0)d("Numero de telephone invalide");
+        double montant;
+        int count = 0;
+        do {
+            if (count != 0) d("Numero de telephone invalide");
             d("entrer le depot de montant initial");
-         montant= ed();count++;}while (montant<=montantmin);
+            montant = ed();
+            count++;
+        } while (montant <= montantmin);
         compte.setSolde(montant);
-        Transaction transaction=new Transaction(true,randomTId(),compte.numeroUnique,montant,LocalDate.now(),
+        Transaction transaction = new Transaction(true, randomTId(), compte.numeroUnique, montant, LocalDate.now(),
                 compte.owner.nomComplet);
-
+        transactions.add(transaction);
         compte.transactions.add(transaction);
         boolean vv = true;
         String x = "";
@@ -210,9 +245,11 @@ public abstract class methodes {
         d("Compte de Id: " + x + " enregistre!");
 
     }
+
     public static void listerClient() {
         for (Client x : clients) {
-            d(x.nomComplet + " de nif/cin: " + x.getNif_Cin() + "\n");
+            if(!x.typeClient.equals("Entreprise"))d(x.nomComplet + " de nif/cin: " + x.getNif_Cin() + "\n");
+            else d(x.nomComplet + " d'Id: " + x.getNif_Cin() + "\n");
         }
     }
 
@@ -389,14 +426,39 @@ public abstract class methodes {
                     }
                 }
                 compte.setEtat('a');
+                double montant;
+                int count = 0;
+                do {
+                    if (count != 0) d("Numero de telephone invalide");
+                    d("entrer le depot de montant initial");
+                    montant = ed();
+                    count++;
+                } while (montant <= montantmin);
+                compte.setSolde(montant);
+                Transaction transaction = new Transaction(true, randomTId(), compte.numeroUnique, montant, LocalDate.now(),
+                        compte.owner.nomComplet);
+                compte.transactions.add(transaction);
+                transactions.add(transaction);
+                boolean vv = true;
+                String x = "";
+                while (vv) {
+                    vv = false;
+                    x = randomCId();
+                    for (Compte xr : comptes) {
+                        if (x.equals(xr.numeroUnique)) vv = true;
+                    }
+                }
+                compte.setNumeroUnique(x);
                 getComptes().add(compte);
                 client.comptes.add(compte);
+                d("Compte de Id: " + x + " enregistre!");
             } else {
                 d("Le client ne peut plus se voir attribuer de getcompte, ses quatre type de compte sont deja attrubuer.");
             }
         } catch (Exception ignored) {
         }
     }
+
     public static Compte searchC() {
         d("Veuillez entrer le numero de compte");
         String s = e();
@@ -406,6 +468,7 @@ public abstract class methodes {
         }
         return null;
     }
+
     public static void rechercherCompte() {
         Compte compte;
         try {
@@ -417,6 +480,7 @@ public abstract class methodes {
         }
 
     }
+
     public static void modifierCompte() {
         try {
             Compte compte = searchC();
@@ -448,11 +512,14 @@ public abstract class methodes {
 
 
     }
+
     public static void listerComptes() {
         for (Compte x : comptes) {
-            d("Compte #" + x.numeroUnique + " detenu par " + x.owner.nomComplet + " de nif/cin: " + x.owner.getNif_Cin());
+           if(!x.owner.typeClient.equals("Entreprise")) d("Compte #" + x.numeroUnique + " detenu par " + x.owner.nomComplet + " de nif/cin: " + x.owner.getNif_Cin());
+            else d("Compte #" + x.numeroUnique + " detenu par " + x.owner.nomComplet + " d'Id: " + x.owner.getNif_Cin());
         }
     }
+
     public static void supprimerCompte() {
         Compte compte;
         try {
@@ -501,7 +568,7 @@ public abstract class methodes {
                 double montant = ed() * coeficient;
 
                 if ((montant + compte.solde) < 0) {
-                    d("Vous ne pouvez pas proceder a ce retrait(le montant est inferieur a votre solde)");
+                    d("Vous ne pouvez pas proceder a ce retrait(le montant est superieur a votre solde)");
                     return;
                 }
                 transaction.setId(randomTId());
@@ -520,8 +587,9 @@ public abstract class methodes {
 
 
     }
+
     public static void newTransfert() {
-        double taxe= 100;
+        double taxe = 100;
         Compte compteD;
         Compte compteC;
         d("Pour le compte debiteur");
@@ -538,86 +606,105 @@ public abstract class methodes {
             d("le compte n'existe pas!");
             return;
         }
-        if(compteD.etat.equals('f')||compteC.etat.equals('f')){
-            d("Vous ne pouver pas faire l'operation sur un compte fermer");return;
+        if(compteC.numeroUnique.equals(compteD.numeroUnique)){
+            d("Vous operer sur le meme compte!");return;
         }
-        if(compteC.type.isIsgourde())d("Le compte crediteur est en gourdes");
+        if (compteD.etat.equals('f') || compteC.etat.equals('f')) {
+            d("Vous ne pouver pas faire l'operation sur un compte fermer");
+            return;
+        }
+        if (compteC.type.isIsgourde()) d("Le compte crediteur est en gourdes");
         else d("Le compte crediteur est en dollars");
-        if(compteD.type.isIsgourde())d("Le compte debiteur est en gourdes");
+        if (compteD.type.isIsgourde()) d("Le compte debiteur est en gourdes");
         else d("Le compte debiteur est en dollar");
-        d("entrer le montant a transferer(Le montant doit etre a la devise du copte debiteur et sera automatiquement convertis a la devise du compte crediteur si confusion il y a!)");
-        double montant=ed();
-        if(compteD.type.Isgourde){
-            if(compteC.type.Isgourde){
-                compteD.setSolde(compteD.getSolde()-montant);compteC.setSolde(compteC.getSolde()+montant-taxe);
-            }else {
-                d("Montant: "+montant+" gourdes, est egale a "+montant/taux+" dollars.");
-                compteD.setSolde(compteD.getSolde()-montant);compteC.setSolde(compteC.getSolde()+(montant/taux)-taxe/taux);
+        d("entrer le montant a transferer(Le montant doit etre a la devise du compte debiteur et sera automatiquement convertis a la devise du compte crediteur si confusion il y a!)");
+        double montant = ed();
+        if(montant>compteD.solde){
+            d("Le montant est superieur au solde du compte debiteur.");return;
+        }
+        if (compteD.type.Isgourde) {
+            if (compteC.type.Isgourde) {
+                compteD.setSolde(compteD.getSolde() - montant);
+                compteC.setSolde(compteC.getSolde() + montant - taxe);
+            } else {
+                d("Montant: " + montant + " gourdes, est egale a " + montant / taux + " dollars.");
+                compteD.setSolde(compteD.getSolde() - montant);
+                compteC.setSolde(compteC.getSolde() + (montant / taux) - taxe / taux);
             }
-        }else {
-            if(compteC.type.isIsgourde()){
-                compteD.setSolde(compteD.getSolde()-montant);compteC.setSolde(compteC.getSolde()+(montant*taux)-taxe);
-                d("Montant: "+montant+" dollars, est egale a"+montant*taux+" gourdes.");
-            }else {
-                compteD.setSolde(compteD.getSolde()-montant);compteC.setSolde(compteC.getSolde()+montant-taxe/taux);
+        } else {
+            if (compteC.type.isIsgourde()) {
+                compteD.setSolde(compteD.getSolde() - montant);
+                compteC.setSolde(compteC.getSolde() + (montant * taux) - taxe);
+                d("Montant: " + montant + " dollars, est egale a" + montant * taux + " gourdes.");
+            } else {
+                compteD.setSolde(compteD.getSolde() - montant);
+                compteC.setSolde(compteC.getSolde() + montant - taxe / taux);
             }
         }
-        if(!compteD.type.Isgourde)taxe=taxe/taux;
+        if (!compteD.type.Isgourde) taxe = taxe / taux;
         d("entrer une description du transfert.");
-        Transfert transfert=new Transfert(randomTransfertId(),compteD.numeroUnique,compteC.numeroUnique,
-                LocalDate.now(),e(),montant-taxe,montant);
+        Transfert transfert = new Transfert(randomTransfertId(), compteD.numeroUnique, compteC.numeroUnique,
+                LocalDate.now(), e(), montant - taxe, montant);
         String devise;
-        if(compteD.type.Isgourde)devise="gourdes";
-        else devise="Dollars";
-        transfert.devise=devise;
+        if (compteD.type.Isgourde) devise = "gourdes";
+        else devise = "Dollars";
+        transfert.devise = devise;
         transferts.add(transfert);
         compteC.transferts.add(transfert);
         compteD.transferts.add(transfert);
     }
-    public static Transfert seachT(String num){
-        for(Transfert x:transferts){
-            if(num.equals(x.idTransfert)){
+
+    public static Transfert seachT(String num) {
+        for (Transfert x : transferts) {
+            if (num.equals(x.idTransfert)) {
                 return x;
             }
         }
-        d("Numero non trouvee!");return null;
+        d("Numero non trouvee!");
+        return null;
     }
-    public static Transaction seachTr(String num){
-        for(Transaction x:transactions){
-            if(num.equals(x.id)){
+
+    public static Transaction seachTr(String num) {
+        for (Transaction x : transactions) {
+            if (num.equals(x.id)) {
                 return x;
             }
         }
-        d("Numero non trouvee!");return null;
+        d("Numero non trouvee!");
+        return null;
     }
-    public static void rechercherTransaction(){
+
+    public static void rechercherTransaction() {
         d("Veuillez entrer le numero de transaction associer");
-        String num=e();
-        try{seachTr(num).toString();
-        }catch (Exception e){
+        String num = e();
+        try {
+            seachTr(num).toString();
+        } catch (Exception e) {
             try {
                 seachT(num).toString();
-            }catch (Exception a){
+            } catch (Exception a) {
                 d("Transaction non trouvee!");
             }
         }
     }
-    public static void listerTransaction(){
-        for (Transaction x:transactions){
-            d("List depot:");
-            if(x.isDepot){
-                d("Transaction "+x.id+" fait le "+x.getDate().toString()+" par: "+x.nomDeposant);
+
+    public static void listerTransaction() {d("List depot:");
+        for (Transaction x : transactions) {
+
+            if (x.isDepot) {
+                d("Transaction " + x.id + " fait le " + x.getDate().toString() + " par: " + x.nomDeposant);
             }
-        }
-        for (Transaction x:transactions){
-            d("List retrait: ");
-            if(!x.isDepot){
-                d("Transaction "+x.id+" fait le "+x.getDate().toString()+" par: "+x.nomDeposant);
+        }d("List retrait: ");
+        for (Transaction x : transactions) {
+
+            if (!x.isDepot) {
+                d("Transaction " + x.id + " fait le " + x.getDate().toString() + " par: " + x.nomDeposant);
             }
         }
         d("List transferts:");
-        for(Transfert x:transferts){
-            d("Transaction "+x.idTransfert+" fait le "+ x.dateTransaction.toString()+" par le client "+x.numeroCompteDebiteur);
+        for (Transfert x : transferts) {
+            d("Transaction " + x.idTransfert + " fait le " + x.dateTransaction.toString() + " du compte " + x.numeroCompteDebiteur+" au compte " +
+                    ""+x.numeroCompteCrediteur);
         }
     }
 }
