@@ -24,6 +24,10 @@ public class Client {
         Telephone = telephone;
         Nif_Cin = nif_Cin;
     }
+    public void save(){
+        ListField listField = new ListField(Nif_Cin,typeClient, nomComplet, sexe, adresse, Telephone);
+        Sqlcon.save(  "Transfert", listField);
+    }
 
     public Client() {
 

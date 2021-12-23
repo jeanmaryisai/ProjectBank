@@ -1,20 +1,16 @@
 package com.company;
 import java.time.LocalDate;
 
-import static com.company.Tools.d;
-
 public class Transfert {
-    String idTransfert;
-    String numeroCompteDebiteur;
-    String numeroCompteCrediteur;
+    int idTransfert;
+    int numeroCompteDebiteur;
+    int numeroCompteCrediteur;
     LocalDate dateTransaction;
     String description;
     double montantDepose;
     double montantRetire;
-    public String devise;
 
-    public Transfert(String idTransfert, String numeroCompteDebiteur, String numeroCompteCrediteur, LocalDate dateTransaction, String description, double montantDepose, double montantRetire) {
-        this.idTransfert = idTransfert;
+    public Transfert(int numeroCompteDebiteur, int numeroCompteCrediteur, LocalDate dateTransaction, String description, double montantDepose, double montantRetire) {
         this.numeroCompteDebiteur = numeroCompteDebiteur;
         this.numeroCompteCrediteur = numeroCompteCrediteur;
         this.dateTransaction = dateTransaction;
@@ -22,38 +18,23 @@ public class Transfert {
         this.montantDepose = montantDepose;
         this.montantRetire = montantRetire;
     }
-
-    public String getIdTransfert() {
+    public void save(){
+            ListField listField = new ListField(idTransfert,numeroCompteDebiteur, numeroCompteCrediteur, dateTransaction, description, montantDepose, montantRetire);
+            Sqlcon.save(  "Transfert", listField);
+    }
+    public int getIdTransfert() {
         return idTransfert;
     }
 
-    public void setIdTransfert(String idTransfert) {
+    public void setIdTransfert(int idTransfert) {
         this.idTransfert = idTransfert;
     }
 
-    public String getNumeroCompteDebiteur() {
+    public int getNumeroCompteDebiteur() {
         return numeroCompteDebiteur;
     }
 
-    public void setNumeroCompteDebiteur(String numeroCompteDebiteur) {
-        boolean existe=false;
-        for(int i=0;i<Dao.getComptes().size();i++){
-            if(numeroCompteDebiteur.equals(Dao.getComptes().get(i).numeroUnique)){
-                existe=true;
-            }
-        }
-        if(!existe){
-            d("Le compte Debiteur n'existe pas!");
-        }else{
-            this.numeroCompteDebiteur = numeroCompteDebiteur;
-        }
-    }
-
-    public String getNumeroCompteCrediteur() {
-        return numeroCompteCrediteur;
-    }
-
-    public void setNumeroCompteCrediteur(String numeroCompteCrediteur) {
+    public void setNumeroCompteDebiteur(int numeroCompteDebiteur) {
         boolean existe=false;
         for(int i=0;i<Dao.getComptes().size();i++){
             if(numeroCompteDebiteur==Dao.getComptes().get(i).numeroUnique){
@@ -61,7 +42,25 @@ public class Transfert {
             }
         }
         if(!existe){
-            d("Le compte Crebiteur n'existe pas!");
+            Tools.d("Le compte Debiteur n'existe pas!");
+        }else{
+            this.numeroCompteDebiteur = numeroCompteDebiteur;
+        }
+    }
+
+    public int getNumeroCompteCrediteur() {
+        return numeroCompteCrediteur;
+    }
+
+    public void setNumeroCompteCrediteur(int numeroCompteCrediteur) {
+        boolean existe=false;
+        for(int i=0;i<Dao.getComptes().size();i++){
+            if(numeroCompteDebiteur==Dao.getComptes().get(i).numeroUnique){
+                existe=true;
+            }
+        }
+        if(!existe){
+            Tools.d("Le compte Crebiteur n'existe pas!");
         }else{
             this.numeroCompteCrediteur = numeroCompteCrediteur;
         }
@@ -98,16 +97,5 @@ public class Transfert {
 
     public void setMontantRetire(double montantRetire) {
         this.montantRetire = montantRetire;
-    }
-    public String toString(){
-
-        d("Id Transaction: "+idTransfert+"\n" +
-                "Type: Transfert" +
-                "\nMontant deposee: "+ montantDepose+" "+devise+
-                "\nMontant retiree: "+ montantRetire+" "+devise+
-                "\nCompte debiteur: "+ numeroCompteDebiteur
-                +"\nCompte Crediteur: "+numeroCompteCrediteur+
-                "\nDate de transfert: "+ dateTransaction.toString());
-        return null;
     }
 }
