@@ -82,6 +82,9 @@ public class Compte {
                  transactions) {
                 d("Transaction "+x.id);
             }
+            for(Transfert x:transferts){
+                d("Transaction "+x.idTransfert);
+            }
         }
         return null;
     }

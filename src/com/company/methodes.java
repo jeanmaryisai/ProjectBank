@@ -220,7 +220,7 @@ public abstract class methodes {
         double montant;
         int count = 0;
         do {
-            if (count != 0) d("Numero de telephone invalide");
+            if (count != 0) d("Le montant minimale pour ouvrir un compte est de "+montantmin);
             d("entrer le depot de montant initial");
             montant = ed();
             count++;
@@ -652,6 +652,7 @@ public abstract class methodes {
         transferts.add(transfert);
         compteC.transferts.add(transfert);
         compteD.transferts.add(transfert);
+        d("Tranfert reussi avec succes!");
     }
 
     public static Transfert seachT(String num) {
